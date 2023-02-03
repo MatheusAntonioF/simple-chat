@@ -1,79 +1,113 @@
-import { FC, useCallback } from 'react';
-import { Button, Divider, Flex, Heading } from '@chakra-ui/react';
+import { FC, useCallback, useState } from 'react';
+import {
+  Flex,
+  Box,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  Link,
+  Spinner,
+} from '@chakra-ui/react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { Input } from '../../components/Input';
-
-interface IRegisterCredentials {
-  name: string;
-  email: string;
-  password: string;
-}
+import { ICreateUser } from '../../types/user.types';
+import { useUser } from '../../services/http/modules/users';
 
 export const Register: FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { createUser } = useUser();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IRegisterCredentials>();
+  } = useForm<ICreateUser>();
 
-  const onSubmit = useCallback((props: IRegisterCredentials) => {
-    console.log('🚀 ~ props', props);
-  }, []);
+  const onSubmit = useCallback(
+    async ({ name, email, password }: ICreateUser) => {
+      try {
+        setIsLoading(true);
+        await createUser({ name, email, password });
+
+        navigate('/');
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [createUser, navigate]
+  );
 
   return (
-    <Flex
-      width="full"
-      height="full"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Flex
-        flexDir="column"
-        alignItems="center"
-        borderRadius="lg"
-        width="20%"
-        height="50%"
-        boxShadow="2xl"
-        padding="4"
-      >
-        <Heading size="lg">Register</Heading>
-        <Divider mt="4" />
-
-        <Flex
+    <Flex minH="100vh" align="center" justify="center" bg="gray.50">
+      <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+        <Stack align="center">
+          <Heading fontSize="4xl" textAlign="center">
+            Register yourself
+          </Heading>
+        </Stack>
+        <Box
           as="form"
           onSubmit={handleSubmit(onSubmit)}
-          flexDir="column"
-          justifyContent="space-around"
-          width="full"
-          height="full"
+          rounded="lg"
+          bg="white"
+          boxShadow="lg"
+          p={8}
         >
-          <Input
-            label="Nome"
-            placeholder="Digite seu nome"
-            {...register('name')}
-            error={errors.name}
-          />
+          <Stack spacing={4}>
+            <Input
+              label="Name"
+              isRequired
+              {...register('name')}
+              error={errors.name}
+            />
 
-          <Input
-            label="Email"
-            type="password"
-            placeholder="Digite seu email"
-            {...register('email')}
-            error={errors.email}
-          />
+            <Input
+              label="Email"
+              type="email"
+              isRequired
+              {...register('email')}
+              error={errors.email}
+            />
 
-          <Input
-            label="Senha"
-            type="password"
-            placeholder="Digite sua senha"
-            {...register('password')}
-            error={errors.password}
-          />
+            <Input
+              type="password"
+              label="Password"
+              isRequired
+              {...register('password')}
+              error={errors.password}
+            />
 
-          <Button>Enter</Button>
-        </Flex>
-      </Flex>
+            <Stack spacing={10} pt={2}>
+              <Button
+                type="submit"
+                size="lg"
+                bg="blue.400"
+                color="white"
+                isDisabled={isLoading}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+              >
+                {isLoading ? <Spinner /> : 'Sign up'}
+              </Button>
+            </Stack>
+            <Stack pt={6}>
+              <Text align="center">
+                Already a user?{' '}
+                <Link color="blue.400" as={RouterLink} to="/">
+                  Login
+                </Link>
+              </Text>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
     </Flex>
   );
 };
