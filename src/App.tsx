@@ -3,13 +3,16 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import { Routes } from './routes/Routes';
 import { Layout } from './components/Layout';
+import { AppProviders } from './hooks';
 
 export const App: FC = () => {
   return (
     <ChakraProvider>
-      <Layout>
-        <Routes />
-      </Layout>
+      <AppProviders>
+        <Layout>
+          <Routes />
+        </Layout>
+      </AppProviders>
     </ChakraProvider>
   );
 };

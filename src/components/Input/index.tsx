@@ -19,7 +19,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
 ) => {
   return (
     <FormControl isInvalid={!!error?.message} isDisabled={isDisabled}>
-      <FormLabel fontSize="sm">{label}</FormLabel>
+      <FormLabel>{label}</FormLabel>
       <ChakraInput
         ref={ref}
         type={type}

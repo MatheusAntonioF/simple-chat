@@ -1,79 +1,103 @@
-import { FC, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import { FC, useCallback, useState } from 'react';
+import {
+  Flex,
+  Box,
+  Stack,
+  Link,
+  Button,
+  Heading,
+  Spinner,
+} from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Input } from '../../components/Input';
+import { IAuthCredentials } from '../../types/auth.types';
+import { useAuth } from '../../hooks/useAuth';
 
-interface IUserCredentials {
-  email: string;
-  password: string;
-}
+const schemaSignValidator = yup
+  .object({
+    email: yup.string().required('Email é obrigatório'),
+    password: yup.string().required('Senha é obrigatória'),
+  })
+  .required();
 
 export const Login: FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { signIn } = useAuth();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IUserCredentials>();
+  } = useForm<IAuthCredentials>({ resolver: yupResolver(schemaSignValidator) });
 
-  const onSubmit = useCallback((props: IUserCredentials) => {
-    console.log('🚀 ~ props', props);
-  }, []);
+  const onSubmit = useCallback(
+    async ({ email, password }: IAuthCredentials) => {
+      try {
+        setIsLoading(true);
+        await signIn({ email, password });
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [signIn]
+  );
 
   return (
-    <Flex
-      width="full"
-      height="full"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Flex
-        flexDir="column"
-        alignItems="center"
-        borderRadius="lg"
-        width="20%"
-        height="50%"
-        minWidth="400px"
-        boxShadow="2xl"
-        padding="4"
-      >
-        <Heading size="lg">Simple chat</Heading>
-        <Divider mt="4" />
-
-        <Flex
+    <Flex minH="100vh" align="center" justify="center" bg="gray.50">
+      <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+        <Stack align="center">
+          <Heading fontSize="4xl">Sign in to simple chat</Heading>
+        </Stack>
+        <Box
           as="form"
           onSubmit={handleSubmit(onSubmit)}
-          flexDir="column"
-          justifyContent="space-around"
-          width="full"
-          height="full"
+          rounded="lg"
+          bg="white"
+          boxShadow="lg"
+          p={8}
         >
-          <Input
-            label="Email"
-            type="email"
-            placeholder="Digite seu email"
-            {...register('email')}
-            error={errors.email}
-          />
+          <Stack spacing={4}>
+            <Input
+              type="email"
+              label="Email"
+              autoComplete="username"
+              {...register('email')}
+              error={errors.email}
+            />
 
-          <Input
-            label="Password"
-            type="password"
-            placeholder="Digite sua senha"
-            autoComplete="current-password"
-            {...register('password')}
-            error={errors.password}
-          />
+            <Input
+              type="password"
+              label="Password"
+              autoComplete="current-password"
+              {...register('password')}
+              error={errors.password}
+            />
 
-          <Button type="submit">Enter</Button>
+            <Stack spacing={10}>
+              <Button
+                type="submit"
+                bg="blue.400"
+                color="white"
+                isDisabled={isLoading}
+                _hover={{
+                  bg: 'blue.500',
+                }}
+              >
+                {isLoading ? <Spinner /> : 'Sign in'}
+              </Button>
 
-          <Text textAlign="center">
-            New to Simple chat?
-            <Link to="/register"> Create an account</Link>
-          </Text>
-        </Flex>
-      </Flex>
+              <Link color="blue.400" as={RouterLink} to="/register">
+                Create an account
+              </Link>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
     </Flex>
   );
 };
