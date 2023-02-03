@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 
 import { Input } from '../../components/Input';
 import { ICreateUser } from '../../types/user.types';
-import { useUser } from '../../services/http/modules/users';
+import { useUser } from '../../hooks/useUser';
 
 export const Register: FC = () => {
   const [isLoading, setIsLoading] = useState(false);

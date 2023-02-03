@@ -13,7 +13,7 @@ export const PrivateResource = ({
 }: IPrivateResourceProps): JSX.Element => {
   const { loggedUser } = useAuth();
 
-  const isSignedIn = !!loggedUser;
+  const isSignedIn = !!loggedUser.token;
 
   return isSignedIn ? (
     <PrivateLayout>{children}</PrivateLayout>
