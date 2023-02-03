@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { PrivateLayout } from '../components/Layout/Private';
 import { useAuth } from '../hooks/useAuth';
 
 interface IPrivateResourceProps {
@@ -14,5 +15,9 @@ export const PrivateResource = ({
 
   const isSignedIn = !!loggedUser;
 
-  return isSignedIn ? children : <Navigate to="/" replace />;
+  return isSignedIn ? (
+    <PrivateLayout>{children}</PrivateLayout>
+  ) : (
+    <Navigate to="/" replace />
+  );
 };
