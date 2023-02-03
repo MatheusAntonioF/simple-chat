@@ -1,5 +1,4 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
-
 import {
   FormControl,
   FormErrorMessage,
@@ -7,7 +6,6 @@ import {
   Input as ChakraInput,
   InputProps,
 } from '@chakra-ui/react';
-
 import { FieldError } from 'react-hook-form';
 
 interface IInputProps extends InputProps {

@@ -20,8 +20,10 @@
     "plugin:import/warnings",
     "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
     "plugin:prettier/recommended" //should be at the lat
   ],
+  "plugins": ["import"],
   "rules": {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
@@ -31,6 +33,30 @@
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "external",
+          "type",
+          "builtin",
+          "object",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "~/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+
+        "newlines-between": "always"
+      }
+    ]
   }
 }

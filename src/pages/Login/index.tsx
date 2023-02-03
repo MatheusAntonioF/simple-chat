@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
+
 import { Input } from '../../components/Input';
 
 export const Login: FC = () => {

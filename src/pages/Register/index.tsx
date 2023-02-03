@@ -1,6 +1,6 @@
 import { FC } from 'react';
-
 import { Button, Divider, Flex, Heading } from '@chakra-ui/react';
+
 import { Input } from '../../components/Input';
 
 export const Register: FC = () => {
