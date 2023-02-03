@@ -14,7 +14,7 @@ interface IInputProps extends InputProps {
 }
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
-  { label, error, isDisabled, ...rest },
+  { label, error, isDisabled, type = 'text', ...rest },
   ref
 ) => {
   return (
@@ -22,6 +22,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
       <FormLabel fontSize="sm">{label}</FormLabel>
       <ChakraInput
         ref={ref}
+        type={type}
         isInvalid={!!error?.message}
         isDisabled={isDisabled}
         {...rest}
