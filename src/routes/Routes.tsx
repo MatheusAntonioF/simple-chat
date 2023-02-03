@@ -1,30 +1,52 @@
 import React, { FC } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Routes as ReactRouter, Route } from 'react-router-dom';
 
 import { Dashboard } from '../pages/Dashboard';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { UserProfile } from '../pages/UserProfile';
 
-export const Routes: FC = () => {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Login />,
-    },
-    {
-      path: '/register',
-      element: <Register />,
-    },
-    {
-      path: '/dashboard',
-      element: <Dashboard />,
-    },
-    {
-      path: '/me',
-      element: <UserProfile />,
-    },
-  ]);
+import { PrivateResource } from './ProtectedResource';
+import { RedirectResource } from './RedirectResource';
 
-  return <RouterProvider router={router} />;
+export const Routes: FC = () => {
+  return (
+    <BrowserRouter>
+      <ReactRouter>
+        <Route
+          path="/"
+          element={
+            <RedirectResource>
+              <Login />
+            </RedirectResource>
+          }
+        />
+        <Route
+          path="register"
+          element={
+            <RedirectResource>
+              <Register />
+            </RedirectResource>
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateResource>
+              <Dashboard />
+            </PrivateResource>
+          }
+        />
+        <Route
+          path="/me"
+          element={
+            <PrivateResource>
+              <UserProfile />
+            </PrivateResource>
+          }
+        />
+      </ReactRouter>
+    </BrowserRouter>
+  );
 };

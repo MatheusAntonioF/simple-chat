@@ -8,7 +8,7 @@ import {
   Heading,
   Spinner,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,6 +29,8 @@ export const Login: FC = () => {
 
   const { signIn } = useAuth();
 
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
@@ -40,11 +42,13 @@ export const Login: FC = () => {
       try {
         setIsLoading(true);
         await signIn({ email, password });
+
+        navigate('/dashboard');
       } finally {
         setIsLoading(false);
       }
     },
-    [signIn]
+    [signIn, navigate]
   );
 
   return (

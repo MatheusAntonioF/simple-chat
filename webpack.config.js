@@ -53,5 +53,6 @@ module.exports = {
     hot: 'only',
     compress: true,
     open: true,
+    historyApiFallback: true,
   },
 };
