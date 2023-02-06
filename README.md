@@ -1,6 +1,6 @@
 # Simple chat :black_heart:
 
-## Overview :thinking_face:
+## Overview
 
 The purpose of this project its to be a simple chat when a user can be create an account and send messages to another users
 
@@ -43,7 +43,7 @@ pnpm install
 
 3. Clone API repository
 
-I could be used some tool to mock the api, like [mirageJS](https://miragejs.com/) but because of some issues with typescript I choose to develop a api from scratch. You can clone the api repository:
+I could be used some tool to mock the api, like [mirageJS](https://miragejs.com/) but because of some issues with typescript I choose to develop a api from scratch(click [here](https://github.com/MatheusAntonioF/simple-chat-api) to see the repository). You can clone the api repository:
 
 ```bash
 git clone https://github.com/MatheusAntonioF/simple-chat-api.git
