@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { api } from '../services/http/axios';
-import { ExistentUser } from '../types/user.types';
+import { IContact } from '../types/contact.types';
 
 import { useToast } from './useToast';
 
@@ -10,7 +10,7 @@ export const useContact = () => {
 
   const getAllContacts = useCallback(async () => {
     try {
-      const { data } = await api.get<ExistentUser[]>('/users');
+      const { data } = await api.get<IContact[]>('/users');
 
       return data;
     } catch (error) {

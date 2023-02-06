@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { Grid } from '@chakra-ui/react';
 
 import { useContact } from '../../hooks/useContact';
-import { IActiveContact } from '../../types/contact.types';
-import { ExistentUser } from '../../types/user.types';
+import { IActiveContact, IContact } from '../../types/contact.types';
 import { useSocket } from '../../hooks/useSocket';
 
 import { SidebarContacts } from './Contacts';
 import { Conversation } from './Conversation';
 
 export const Dashboard = () => {
-  const [contacts, setContacts] = useState<ExistentUser[]>([]);
+  const [contacts, setContacts] = useState<IContact[]>([]);
   const [activeContact, setActiveContact] = useState<IActiveContact>(
     {} as IActiveContact
   );
@@ -24,7 +23,7 @@ export const Dashboard = () => {
       const foundContacts = await getAllContacts();
 
       if (foundContacts) {
-        setContacts(foundContacts); // remove logged user from contacts
+        setContacts(foundContacts);
       }
     }
 

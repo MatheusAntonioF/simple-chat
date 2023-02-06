@@ -1,13 +1,12 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, List } from '@chakra-ui/react';
 
-import { ExistentUser } from '../../../types/user.types';
-import { IActiveContact } from '../../../types/contact.types';
+import { IActiveContact, IContact } from '../../../types/contact.types';
 
 import { Contact } from './Contact';
 
 interface ISidebarContactProps {
-  contacts: ExistentUser[];
+  contacts: IContact[];
   setActiveContact: React.Dispatch<React.SetStateAction<IActiveContact>>;
 }
 
@@ -16,9 +15,9 @@ export const SidebarContacts = ({
   setActiveContact,
 }: ISidebarContactProps): JSX.Element => {
   return (
-    <Box h="full" bg="gray.100" gap={2}>
-      <Box borderRight="1px" w="full" p="2" h="full">
-        {contacts.map(({ id, name }) => (
+    <Box h="full" bg="gray.100" pt={2}>
+      <List borderRight="1px" w="full" p="1" h="full" spacing={3}>
+        {contacts.map(({ id, name, message: lastMessage }) => (
           <Contact
             key={id}
             setActiveChat={() =>
@@ -28,10 +27,10 @@ export const SidebarContacts = ({
               })
             } // add useCallback here
             contactName={name}
-            lastMessage="last message"
+            lastMessage={lastMessage}
           />
         ))}
-      </Box>
+      </List>
     </Box>
   );
 };

@@ -95,8 +95,12 @@ export const Conversation = ({
       <Flex flexDir="column" bg="red" h="full" justifyContent="space-between">
         <Flex bg="green" flexGrow={1} p={5}>
           <List spacing={3}>
-            {conversation.map(({ id, message }) => {
-              return <ListItem key={id}>{message}</ListItem>;
+            {conversation.map(({ id, message, sender }) => {
+              const senderMessage = sender === loggedUser.id;
+
+              return (
+                <ListItem key={id}>{`${message} ${senderMessage}`}</ListItem>
+              );
             })}
           </List>
         </Flex>
