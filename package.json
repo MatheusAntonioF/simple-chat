@@ -24,7 +24,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.0",
     "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
+    "redux": "^4.2.1",
     "socket.io-client": "^4.5.4",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
@@ -40,6 +42,8 @@
     "@types/bcrypt": "^5.0.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/react-redux": "^7.1.25",
+    "@types/redux": "^3.6.0",
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
