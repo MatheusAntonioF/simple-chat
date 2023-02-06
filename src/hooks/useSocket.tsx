@@ -23,7 +23,7 @@ export const SocketProvider: FC<PropsWithChildren> = ({ children }) => {
   const { loggedUser } = useAuth();
 
   useEffect(() => {
-    const loggedUserId = loggedUser.id;
+    const loggedUserId = loggedUser?.id;
 
     const socket = socketIO('http://localhost:3333', {
       auth: { userId: loggedUserId },

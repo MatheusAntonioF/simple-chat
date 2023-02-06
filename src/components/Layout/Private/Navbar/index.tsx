@@ -11,15 +11,20 @@ import {
   Stack,
   Center,
   Heading,
-  Link,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+
+import { useAuth } from '../../../../hooks/useAuth';
+import { Link } from '../../../Link';
 
 export const Navbar = () => {
+  const { signOut } = useAuth();
+
   return (
     <Box bg="gray.100" px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        <Heading size="md">Simple chat</Heading>
+        <Heading size="md">
+          <Link to="/dashboard">Simple chat</Link>
+        </Heading>
 
         <Flex alignItems="center">
           <Stack direction="row" spacing={7}>
@@ -47,11 +52,15 @@ export const Navbar = () => {
 
                 <MenuDivider />
                 <MenuItem>
-                  <Link as={RouterLink} w="full" to="/me">
+                  <Link w="full" to="/me">
                     Profile
                   </Link>
                 </MenuItem>
-                <MenuItem>Logout</MenuItem>
+                <MenuItem>
+                  <Link w="full" to="/" onClick={signOut}>
+                    Logout
+                  </Link>
+                </MenuItem>
               </MenuList>
             </Menu>
           </Stack>

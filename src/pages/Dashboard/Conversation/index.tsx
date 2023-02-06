@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Flex, Heading, Input, List, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { Socket } from 'socket.io-client';
@@ -27,12 +27,24 @@ export const Conversation = ({
   socket,
 }: IConversationProps): JSX.Element => {
   const [conversation, setConversation] = useState<IConversation[]>([]);
+
+  const listChatRef = useRef<HTMLUListElement>(null);
+
   const { register, handleSubmit, reset } = useForm<IMessageProps>();
 
   const { loggedUser } = useAuth();
   const { getOneConversation, createNewMessage } = useConversation();
 
   const toast = useToast();
+
+  const scrollToBottomChat = useCallback(() => {
+    if (!listChatRef.current) return;
+
+    listChatRef.current?.scrollTo({
+      top: listChatRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [listChatRef]);
 
   useEffect(() => {
     async function fetchConversation() {
@@ -49,7 +61,14 @@ export const Conversation = ({
     }
 
     fetchConversation();
-  }, [getOneConversation, activeContact, loggedUser]);
+    scrollToBottomChat();
+  }, [
+    getOneConversation,
+    scrollToBottomChat,
+    activeContact,
+    listChatRef,
+    loggedUser,
+  ]);
 
   useEffect(() => {
     if (!socket) return;
@@ -60,12 +79,12 @@ export const Conversation = ({
       const parsedMessage = JSON.parse(message) as IConversation;
 
       if (parsedMessage.sender === activeContact.id) {
-        console.log('added new message -> useEffect');
-
         setConversation(prevConversation => [
           ...prevConversation,
           parsedMessage,
         ]);
+
+        scrollToBottomChat();
       }
 
       setContacts(prevContacts => {
@@ -80,7 +99,7 @@ export const Conversation = ({
         });
       });
     });
-  }, [socket, activeContact, setContacts]);
+  }, [socket, activeContact, scrollToBottomChat, setContacts]);
 
   const onSubmit = useCallback(
     async ({ message }: IMessageProps) => {
@@ -96,8 +115,6 @@ export const Conversation = ({
 
         setConversation(prevConversation => [...prevConversation, newMessage]);
 
-        console.log('added new message -> onSubmit', newMessage);
-
         setContacts(prevContacts => {
           return prevContacts.map(contact => {
             if (newMessage.receiver === contact.id) {
@@ -111,11 +128,19 @@ export const Conversation = ({
         });
 
         reset({ message: '' });
+        scrollToBottomChat();
       } catch (error) {
         toast({ title: 'Failed to send message', status: 'error' });
       }
     },
-    [toast, createNewMessage, reset, setContacts, activeContact]
+    [
+      toast,
+      createNewMessage,
+      reset,
+      scrollToBottomChat,
+      setContacts,
+      activeContact,
+    ]
   );
 
   return (
@@ -131,6 +156,7 @@ export const Conversation = ({
             justifyContent="space-between"
           >
             <List
+              ref={listChatRef}
               spacing={3}
               w="full"
               p={5}

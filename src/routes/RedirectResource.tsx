@@ -10,7 +10,7 @@ export const RedirectResource = ({
 }): JSX.Element => {
   const { loggedUser } = useAuth();
 
-  const isSignedIn = !!loggedUser.token;
+  const isSignedIn = !!loggedUser?.token;
 
   return isSignedIn ? <Navigate to="/dashboard" /> : children;
 };

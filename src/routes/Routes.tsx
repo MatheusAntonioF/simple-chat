@@ -22,7 +22,7 @@ export const Routes: FC = () => {
           }
         />
         <Route
-          path="register"
+          path="/register"
           element={
             <RedirectResource>
               <Register />

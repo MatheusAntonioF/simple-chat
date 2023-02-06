@@ -5,7 +5,10 @@ import {
 } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
 
-type ILinkProps = ChakraLinkProps & PropsWithChildren;
+type ILinkProps = ChakraLinkProps &
+  PropsWithChildren & {
+    to: string;
+  };
 
 export const Link: FC<ILinkProps> = ({ children, ...rest }) => {
   return (

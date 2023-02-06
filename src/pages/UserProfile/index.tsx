@@ -46,7 +46,7 @@ export const UserProfile = () => {
   );
 
   return (
-    <Flex minH="100vh" align="center" justify="center" bg="gray.50">
+    <Flex align="center" justify="center" bg="gray.50">
       <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
         <Stack align="center">
           <Heading fontSize="4xl" textAlign="center">

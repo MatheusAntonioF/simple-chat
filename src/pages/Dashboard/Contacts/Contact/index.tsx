@@ -35,7 +35,14 @@ export const Contact = ({
           h="full"
         >
           <Text>{contactName}</Text>
-          <Text fontSize="sm" fontWeight="medium">
+          <Text
+            fontSize="sm"
+            fontWeight="medium"
+            overflow="hidden"
+            maxW="200px"
+            textOverflow="ellipsis"
+            whiteSpace="nowrap"
+          >
             {lastMessage}
           </Text>
         </Flex>
