@@ -31,13 +31,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const signIn = useCallback(
     async ({ email, password }: IAuthCredentials) => {
-      try {
-        const data = await authenticateUser({ email, password });
+      const data = await authenticateUser({ email, password });
 
-        if (data) {
-          setLoggedUser({ token: data.token });
-        }
-      } catch (error) {}
+      if (data) {
+        setLoggedUser({ token: data.token, id: data.id });
+      }
     },
     [authenticateUser, setLoggedUser]
   );

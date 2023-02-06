@@ -9,11 +9,13 @@ const persistTokenInAuthenticatedRequest = (
 ) => {
   if (request.headers?.Authorization) return request;
 
-  const { token }: ILoggedUser = JSON.parse(
+  const storageData: ILoggedUser = JSON.parse(
     String(localStorage.getItem(LABEL_AUTH))
   );
 
-  if (request.headers) request.headers['Authorization'] = `Bearer ${token}`;
+  if (request.headers) {
+    request.headers['Authorization'] = `Bearer ${storageData?.token}`;
+  }
 
   return request;
 };

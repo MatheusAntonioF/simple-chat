@@ -19,6 +19,7 @@ export const useUser = () => {
 
         return data;
       } catch (error) {
+        console.error(error);
         toast({
           title: 'Error to create a new user',
           description: 'Check the data and try again',

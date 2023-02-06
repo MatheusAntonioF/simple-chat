@@ -5,6 +5,7 @@ export interface IAuthCredentials {
 
 export interface ILoggedUser {
   token: string;
+  id: number;
 }
 
 export interface IAuthContext {

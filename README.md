@@ -18,3 +18,5 @@
 ## Plus requirements
 
 - [ ] Internalization
+
+- [ ] Create interceptor when token was expired

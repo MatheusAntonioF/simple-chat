@@ -5,7 +5,7 @@ export interface IUser {
 }
 
 export interface ExistentUser extends IUser {
-  id: string;
+  id: number;
 }
 
 export interface ICreateUser {
