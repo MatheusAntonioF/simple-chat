@@ -22,22 +22,30 @@ export const Dashboard = () => {
     async function fetchContacts() {
       const foundContacts = await getAllContacts();
 
-      if (foundContacts) {
-        setContacts(foundContacts);
-      }
+      if (!foundContacts) return;
+
+      setContacts(foundContacts);
     }
 
     fetchContacts();
   }, [getAllContacts]);
 
   return (
-    <Grid templateColumns="350px 1fr" w="100%" h="calc(100% - 64px)">
+    <Grid
+      templateColumns="350px 1fr"
+      w="100%"
+      templateRows="calc(100vh - 64px);"
+    >
       <SidebarContacts
         contacts={contacts}
         setActiveContact={setActiveContact}
       />
 
-      <Conversation activeContact={activeContact} socket={socket} />
+      <Conversation
+        activeContact={activeContact}
+        setContacts={setContacts}
+        socket={socket}
+      />
     </Grid>
   );
 };

@@ -16,7 +16,7 @@ export const SidebarContacts = ({
 }: ISidebarContactProps): JSX.Element => {
   return (
     <Box h="full" bg="gray.100" pt={2}>
-      <List borderRight="1px" w="full" p="1" h="full" spacing={3}>
+      <List w="full" p="1" h="full" spacing={3}>
         {contacts.map(({ id, name, message: lastMessage }) => (
           <Contact
             key={id}

@@ -26,5 +26,9 @@
 - [ ] Get last message from contact to show on contacts bar
 - [ ] Create interceptor when token was expired
 - [ ] Add break line when message is too big
-- [ ] Create style from chat
-  - [ ] Create custom style when I sent a message
+- [x] Create style from chat
+  - [x] Create custom style when I sent a message
+- [ ] Create triangle to show when send the message
+- [ ] Remove focus style from type input
+- [x] Reset type input after send a message
+- [ ] Scroll to back when send a new message
