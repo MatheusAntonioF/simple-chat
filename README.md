@@ -23,9 +23,9 @@
 
 - [ ] Remove logged user from contacts
 - [ ] Change way to get data from api - remove if
-- [ ] Get last message from contact to show on contacts bar
+- [x] Get last message from contact to show on contacts bar
 - [ ] Create interceptor when token was expired
-- [ ] Add break line when message is too big
+- [x] Add break line when message is too big
 - [x] Create style from chat
   - [x] Create custom style when I sent a message
 - [ ] Create triangle to show when send the message
