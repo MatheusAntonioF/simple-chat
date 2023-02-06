@@ -98,7 +98,7 @@ npm run dev
 
 ### Plus requirements
 
-- [ ] Internalization
+- [ ] Internationalization
 
 ### Fix me
 
